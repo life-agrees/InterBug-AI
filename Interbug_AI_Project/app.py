@@ -414,38 +414,46 @@ elif page == "Model Training":
         max_depth = st.slider("Maximum depth", 3, 10, 5)
         feature_selection = st.checkbox("Use feature selection", value=True)
         if st.button("Train Model"):
-            with st.spinner("Training model..."):
-                try:
-                    old_stdout = sys.stdout
-                    sys.stdout = mystdout = StringIO()
-                    from Sei_Module.model import train_model
-                    train_model.train_model()
-                    sys.stdout = old_stdout
-                    st.text("Training Log:")
-                    st.code(mystdout.getvalue())
-                    model, imputer, selector, feature_names = load_model()
-                    if model is not None:
-                        st.success("Model training completed successfully")
-                        st.subheader("Feature Importance")
-                        fig = plot_feature_importance(model, feature_names['selected_features'])
-                        if fig:
-                            st.pyplot(fig)
-                        if os.path.exists('feature_importance.png'):
-                            st.subheader("Feature Importance Visualization")
-                            st.image('feature_importance.png')
-                        st.subheader("Training Logs")
-                        st.text(mystdout.getvalue())
-                        st.subheader("Model Details")
-                        st.write(f"Model Type: {type(model).__name__}")
-                        st.write(f"Number of Estimators: {model.n_estimators}")
-                        st.write(f"Selected Features: {len(feature_names['selected_features'])}")
-                        st.write("Selected Features:")
-                        for i, feat in enumerate(feature_names['selected_features']):
-                            st.write(f"{i+1}. {feat}")
-                    else:
-                        st.error("Model training did not produce a model file")
-                except Exception as e:
-                    st.error(f"Training failed: {str(e)}")
+    with st.spinner("Training model..."):
+        try:
+            old_stdout = sys.stdout
+            sys.stdout = mystdout = StringIO()
+            from Sei_Module.model import train_model
+            train_model.train_model()
+            sys.stdout = old_stdout
+
+            # Debug: Check if the model file was created
+            if os.path.exists("interbug_model.pkl"):
+                st.write("Model file created successfully!")
+            else:
+                st.write("Model file not found after training!")
+
+            st.text("Training Log:")
+            st.code(mystdout.getvalue())
+            model, imputer, selector, feature_names = load_model()
+            if model is not None:
+                st.success("Model training completed successfully")
+                st.subheader("Feature Importance")
+                fig = plot_feature_importance(model, feature_names['selected_features'])
+                if fig:
+                    st.pyplot(fig)
+                if os.path.exists('feature_importance.png'):
+                    st.subheader("Feature Importance Visualization")
+                    st.image('feature_importance.png')
+                st.subheader("Training Logs")
+                st.text(mystdout.getvalue())
+                st.subheader("Model Details")
+                st.write(f"Model Type: {type(model).__name__}")
+                st.write(f"Number of Estimators: {model.n_estimators}")
+                st.write(f"Selected Features: {len(feature_names['selected_features'])}")
+                st.write("Selected Features:")
+                for i, feat in enumerate(feature_names['selected_features']):
+                    st.write(f"{i+1}. {feat}")
+            else:
+                st.error("Model training did not produce a model file")
+        except Exception as e:
+            st.error(f"Training failed: {str(e)}")
+
 
 # Live Monitoring Page
 elif page == "Live Monitoring":
