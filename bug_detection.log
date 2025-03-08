@@ -1,0 +1,25 @@
+2025-03-03 12:11:39,184 - __main__ - INFO - Starting bug detection on preprocessed_features.csv
+2025-03-03 12:11:39,222 - __main__ - INFO - Loaded 50 records with 16 features
+2025-03-03 12:11:39,228 - __main__ - INFO - Using 3 core features and 7 additional features
+2025-03-03 12:11:39,325 - __main__ - INFO - Core thresholds: transaction_mismatch=0.0000, fee_ratio=1.0000, success_rate=0.7000
+2025-03-03 12:11:39,328 - __main__ - INFO - Additional thresholds: gas_efficiency=1.0000, block_sync_ratio=0.0000, fee_inconsistency=1.0000, cross_chain_disparity=0.0000, gas_usage_anomaly=0.0000, block_size_ratio=0.0000, new_transactions_ratio=0.0000
+2025-03-03 12:11:39,355 - __main__ - INFO - Minimum anomaly score for bug classification: 2
+2025-03-03 12:11:39,357 - __main__ - INFO - Detected 50 bugs in 50 records (100.00%)
+2025-03-03 12:11:39,358 - __main__ - WARNING - Class imbalance adjustment needed.
+2025-03-03 12:11:39,362 - __main__ - INFO - Adjusted to 10 bugs in 50 records (20.00%)
+2025-03-03 12:11:39,465 - __main__ - INFO - Feature importance based on correlation with anomaly score:
+2025-03-03 12:11:39,466 - __main__ - INFO -   transaction_mismatch: nan
+2025-03-03 12:11:39,467 - __main__ - INFO -   fee_ratio: nan
+2025-03-03 12:11:39,467 - __main__ - INFO -   success_rate: nan
+2025-03-03 12:11:39,468 - __main__ - INFO -   gas_efficiency: nan
+2025-03-03 12:11:39,468 - __main__ - INFO -   block_sync_ratio: nan
+2025-03-03 12:11:39,469 - __main__ - INFO -   fee_inconsistency: nan
+2025-03-03 12:11:39,469 - __main__ - INFO -   cross_chain_disparity: nan
+2025-03-03 12:11:39,470 - __main__ - INFO -   gas_usage_anomaly: nan
+2025-03-03 12:11:39,472 - __main__ - INFO -   block_size_ratio: nan
+2025-03-03 12:11:39,473 - __main__ - INFO -   new_transactions_ratio: nan
+2025-03-03 12:11:57,541 - __main__ - INFO - Generated 13 plots in plots
+2025-03-03 12:11:57,547 - __main__ - INFO - Bug detection completed in 18.36 seconds
+2025-03-03 12:11:57,558 - __main__ - INFO - Found 10 bugs in 50 records
+2025-03-03 12:11:57,572 - __main__ - INFO - Full results saved to blockchain_bugs.csv
+2025-03-03 12:11:57,580 - __main__ - INFO - Simplified bug report saved to bug_report.csv
