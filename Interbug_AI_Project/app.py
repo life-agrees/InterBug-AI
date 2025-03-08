@@ -173,6 +173,7 @@ for file, info in existing_files.items():
         st.sidebar.warning(f"❌ {info['description']} missing")
 
 # Option to fetch new data
+# Option to fetch new data
 fetch_new = st.sidebar.checkbox("Fetch new data from API", value=False)
 if fetch_new:
     if st.sidebar.button("Start Data Fetch"):
@@ -181,6 +182,15 @@ if fetch_new:
             if success:
                 st.sidebar.success("Data fetched successfully!")
                 existing_files = check_data_files()
+                # Check if the fetched file exists and show download button
+                if existing_files.get('combined_data.csv', {}).get('exists'):
+                    with open('combined_data.csv', 'rb') as f:
+                        st.download_button(
+                            label="Download Combined Data",
+                            data=f,
+                            file_name="combined_data.csv",
+                            mime="text/csv"
+                        )
             else:
                 st.sidebar.error(f"Error fetching data: {fetch_log}")
 
