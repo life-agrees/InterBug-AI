@@ -336,8 +336,9 @@ elif page == "Bug Detection":
         st.success(f"Loaded preprocessed data with {len(df)} rows and {len(df.columns)} features")
         st.subheader("Feature Data Preview")
         st.dataframe(df.head())
+        
         st.subheader("Feature Analysis")
-        features = st.multiselect("Select features to analyze", df.columns.tolist(), 
+        features = st.multiselect("Select features to analyze", df.columns.tolist(),
                                   default=df.columns.tolist()[:3])
         if features:
             st.subheader("Feature Correlation")
@@ -348,49 +349,63 @@ elif page == "Bug Detection":
             feature_to_plot = st.selectbox("Select feature to plot distribution", features)
             fig = px.histogram(df, x=feature_to_plot, marginal="box")
             st.plotly_chart(fig, use_container_width=True)
+        
         st.subheader("Bug Detection")
         threshold_option = st.slider("Anomaly threshold percentile", 70, 95, 80)
         threshold_multiplier = st.slider("Anomaly Threshold Multiplier", 
                                          min_value=0.5, max_value=2.0, value=1.5, step=0.5)
-        if st.button("Detect Bugs"):
-            with st.spinner("Detecting bugs..."):
-                try:
-                    from Sei_Module.testing import framework
-                    result_df = framework.detect_bugs(df, threshold_multiplier=threshold_multiplier)
-                    result_df.to_csv('training_data.csv', index=False)
-                    st.success(f"Bug detection completed. Found {result_df['bug_detected'].sum()} bugs in {len(result_df)} records")
-                    st.subheader("Bug Detection Results")
-                    if st.checkbox("Show only detected bugs"):
-                        display_df = result_df[result_df['bug_detected'] == 1]
-                    else:
-                        display_df = result_df
-                    st.dataframe(display_df)
-                    st.subheader("Anomaly Score Distribution")
-                    fig = px.histogram(
-                        result_df, x='anomaly_score',
-                        color='bug_detected', 
-                        labels={"bug_detected": "Bug Detected"},
-                        color_discrete_map={1: "red", 0: "blue"}
-                    )
-                    st.plotly_chart(fig, use_container_width=True)
-                    st.subheader("Feature Contribution to Bugs")
-                    feature_for_anomaly = st.selectbox(
-                        "Select feature to analyze contribution to bugs",
-                        [f for f in result_df.columns if f not in ['bug_detected', 'anomaly_score']]
-                    )
-                    fig = px.scatter(
-                        result_df, x=feature_for_anomaly, y='anomaly_score',
-                        color='bug_detected',
-                        labels={"bug_detected": "Bug Detected"},
-                        color_discrete_map={1: "red", 0: "blue"}
-                    )
-                    st.plotly_chart(fig, use_container_width=True)
-                    feature_threshold = result_df[feature_for_anomaly].abs().quantile(threshold_option/100)
-                    fig = plot_anomaly_thresholds(result_df, feature_for_anomaly, feature_threshold)
-                    st.plotly_chart(fig, use_container_width=True)
-                except Exception as e:
-                    st.error(f"Bug detection failed: {str(e)}")
-                    st.code(str(e))
+
+        # Use session state to store bug detection results
+        if "bug_detection_result" not in st.session_state:
+            if st.button("Detect Bugs"):
+                with st.spinner("Detecting bugs..."):
+                    try:
+                        from Sei_Module.testing import framework
+                        result_df = framework.detect_bugs(df, threshold_multiplier=threshold_multiplier)
+                        result_df.to_csv('training_data.csv', index=False)
+                        st.session_state['bug_detection_result'] = result_df
+                        st.success(f"Bug detection completed. Found {result_df['bug_detected'].sum()} bugs in {len(result_df)} records")
+                    except Exception as e:
+                        st.error(f"Bug detection failed: {str(e)}")
+                        st.code(str(e))
+        else:
+            st.success("Bug detection already run. See results below.")
+
+        # If results are stored, display them
+        if "bug_detection_result" in st.session_state:
+            result_df = st.session_state['bug_detection_result']
+            st.subheader("Bug Detection Results")
+            if st.checkbox("Show only detected bugs"):
+                display_df = result_df[result_df['bug_detected'] == 1]
+            else:
+                display_df = result_df
+            st.dataframe(display_df)
+
+            st.subheader("Anomaly Score Distribution")
+            fig = px.histogram(
+                result_df, x='anomaly_score',
+                color='bug_detected', 
+                labels={"bug_detected": "Bug Detected"},
+                color_discrete_map={1: "red", 0: "blue"}
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+            st.subheader("Feature Contribution to Bugs")
+            feature_for_anomaly = st.selectbox(
+                "Select feature to analyze contribution to bugs",
+                [f for f in result_df.columns if f not in ['bug_detected', 'anomaly_score']]
+            )
+            fig = px.scatter(
+                result_df, x=feature_for_anomaly, y='anomaly_score',
+                color='bug_detected',
+                labels={"bug_detected": "Bug Detected"},
+                color_discrete_map={1: "red", 0: "blue"}
+            )
+            st.plotly_chart(fig, use_container_width=True)
+            feature_threshold = result_df[feature_for_anomaly].abs().quantile(threshold_option/100)
+            fig = plot_anomaly_thresholds(result_df, feature_for_anomaly, feature_threshold)
+            st.plotly_chart(fig, use_container_width=True)
+
 
 # Model Training Page
 elif page == "Model Training":
