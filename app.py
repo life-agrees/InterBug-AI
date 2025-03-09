@@ -162,15 +162,15 @@ def plot_anomaly_thresholds(df, feature, threshold):
 st.sidebar.title("InterBug AI")
 st.sidebar.markdown("Sei Network Cross-Chain Bug Detection")
 
-# Check existing data files and display status
 existing_files = check_data_files()
+
 st.sidebar.markdown("---")
-st.sidebar.subheader("Data Management")
-for file, info in existing_files.items():
-    if info['exists']:
-        st.sidebar.success(f"✅ {info['description']} exists")
-    else:
-        st.sidebar.warning(f"❌ {info['description']} missing")
+with st.sidebar.expander("Data Management", expanded=True):
+    for file, info in existing_files.items():
+        if info['exists']:
+            st.sidebar.success(f"✅ {info['description']} exists")
+        else:
+            st.sidebar.warning(f"❌ {info['description']} missing")
 
 # Option to fetch new data
 fetch_new = st.sidebar.checkbox("Fetch new data from API", value=False)
