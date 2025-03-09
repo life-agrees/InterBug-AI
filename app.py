@@ -182,12 +182,12 @@ if fetch_new:
                 st.sidebar.success("Data fetched successfully!")
                 existing_files = check_data_files()
                 # Check if the fetched file exists and show download button
-                if existing_files.get('combined_data.csv', {}).get('exists'):
-                    with open('combined_data.csv', 'rb') as f:
+                if existing_files.get('combined_datas.csv', {}).get('exists'):
+                    with open('combined_datas.csv', 'rb') as f:
                         st.download_button(
                             label="Download Combined Data",
                             data=f,
-                            file_name="combined_data.csv",
+                            file_name="combined_datas.csv",
                             mime="text/csv"
                         )
             else:
