@@ -194,11 +194,11 @@ if fetch_new:
                 st.sidebar.error(f"Error fetching data: {fetch_log}")
 
 
-# Navigation options
-page = st.sidebar.radio(
+page = st.sidebar.selectbox(
     "Navigation",
     ["Dashboard", "Data Upload & Processing", "Bug Detection", "Model Training", "Live Monitoring"]
 )
+
 
 # Dashboard page
 if page == "Dashboard":
