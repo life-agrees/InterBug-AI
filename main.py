@@ -4,9 +4,7 @@ import pandas as pd
 from datetime import datetime, timedelta, timezone
 import sys
 
-# Add the project root to sys.path if needed
-# Uncomment if Sei_Module is not in your PYTHONPATH
-# sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Import functions from the Sei_Module
 from Sei_Module.data_cleaning import clean_data

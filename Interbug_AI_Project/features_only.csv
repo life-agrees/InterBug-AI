@@ -1,2 +1,0 @@
-transaction_mismatch,fee_ratio,success_rate,log_cosmos_total_gas_used,log_evm_gas_growth,cosmos_new_block,evm_new_block,gas_efficiency,block_sync_ratio,fee_inconsistency,cross_chain_disparity,gas_usage_anomaly,block_size_ratio,new_transactions_ratio
-0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000
