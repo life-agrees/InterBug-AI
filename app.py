@@ -165,7 +165,7 @@ st.sidebar.markdown("Sei Network Cross-Chain Bug Detection")
 existing_files = check_data_files()
 
 st.sidebar.markdown("---")
-with st.sidebar.expander("Data Management", expanded=True):
+with st.sidebar.expander("Data Management", expanded=False):
     for file, info in existing_files.items():
         if info['exists']:
             st.sidebar.success(f"✅ {info['description']} exists")
