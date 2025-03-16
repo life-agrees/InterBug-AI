@@ -99,18 +99,18 @@ Check out the live app here: [https://seibugs.streamlit.app/](https://seibugs.st
 
 ### Troubleshooting
 
-**Module Import Issues:**
-Verify that your custom modules (`Sei_Module.data_preprocess` and `Sei_Module.testing`) are in the correct directory and that the import paths in `app.py` match your project structure.
+1. **Module Import Issues:**
+   Verify that your custom modules (`Sei_Module.data_preprocess` and `Sei_Module.testing`) are in the correct directory and that the import paths in `app.py` match your project structure.
 
-**Missing Dependencies:**
-If you encounter errors related to missing packages, install them using `pip install <package>`.
+2. **Missing Dependencies:**
+   If you encounter errors related to missing packages, install them using `pip install <package>`.
 
-**CSV File Format:**
-Ensure that the CSV files you upload are correctly formatted and include the necessary columns for processing.
+3. **CSV File Format:**
+   Ensure that the CSV files you upload are correctly formatted and include the necessary columns for processing.
 
 ### Conclusion
 
-InterBug AI is a comprehensive tool designed to simplify cross-chain bug detection for the Sei Network. It integrates data processing, ML-driven anomaly detection, and interactive visualizations into one intuitive dashboard—making advanced blockchain analytics accessible to everyone.
+-InterBug AI is a comprehensive tool designed to simplify cross-chain bug detection for the Sei Network. It integrates data processing, ML-driven anomaly detection, and interactive visualizations into one intuitive dashboard—making advanced blockchain analytics accessible to everyone.
 
 
 ### License
