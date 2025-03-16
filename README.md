@@ -63,13 +63,16 @@ Check out the live app here: [https://seibugs.streamlit.app/](https://seibugs.st
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/yourusername/interbug-ai.git
-   cd interbug-ai
+   git clone https://github.com/life-agrees/Interbug-ai.git
+   cd Interbug-ai
+
 
 2. **Install Dependencies:**
+    ```bash
    pip install -r requirements.txt
 
 4. **Run the App:**
+    ```bash
    streamlit run app.py
 
  ### Usage 
